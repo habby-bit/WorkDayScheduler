@@ -28,5 +28,62 @@ jQuery(document).ready(function() {
         //     textarea.addClass("past");
         // }
     });
+    
+    var saveBtn = $(".saveBtn")
+
+    var textarea;
+    var saveBtn;
+
+    var events = [];
+
+    inIt();
+  
+      function renderEvents() {
+        for (var i = 0; i < events.length; i++) {
+          var event = events[i];
+      
+          textarea.append(event);
+        }
+      }
+
+    function inIt() {
+        var storedEvents = JSON.parse(localStorage.getItem("events"));      
+        if (storedEvents !== null) {
+          events = storedEvents;
+        }
+        renderEvents();
+    }
+
+    function storeEvents() {
+        localStorage.setItem("events", JSON.stringify(events));
+    }
+
+    saveBtn.click(function(event){
+        event.preventDefault();
+          
+        var textareaVal = textarea.val().trim();
+          
+        if (textareaVal === "") {
+            return;
+        }
+          
+        events.push(textareaVal);
+
+        storeEvents();
+        renderEvents();
+
+        });
 
 });
+
+    // saveBtn.click(function(event){
+    //     event.preventDefault();
+
+    //     localStorage.getItem('textarea');
+
+    //     localStorage.setItem('textarea', textarea.val());
+
+    //     console.log('textarea.val():', textarea.val())
+    //     console.log('textarea:', textarea)
+    
+    // });
