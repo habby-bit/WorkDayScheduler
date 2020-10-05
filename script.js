@@ -5,17 +5,25 @@ jQuery(document).ready(function() {
 
     var textarea = $(".textarea")
 
-    var currentHour = moment().format('h');
+    var currentHour = moment().format('h a');
 
     console.log('currentHour:', currentHour)
 
     var hours = $("span");
+    
+    var array = [];
+    
+    hours.each(function () {
+        array.push(this.innerHTML);
+    });
 
-    var hoursNum = hours.text().split(/AM|PM| /);
+    console.log('array:', array)
+
+    var hoursNum = hours.split(/AM|PM/);
     console.log('hoursNum:', hoursNum)
 
-    $.each(hoursNum, function(index, value) {
-        console.log(index, value);
+    // $.each(hoursNum, function(index, value) {
+    //     console.log(index, value);
         // if (currentHour.isSame(value)) {
         //     textarea.addClass("present");
         // }
@@ -27,53 +35,50 @@ jQuery(document).ready(function() {
         // if (currentHour.isAfter(value)) {
         //     textarea.addClass("past");
         // }
-    });
+    // });
     
+    // How I would do this is I'd put an ID on the savebutton, like "save10". 
+    // Then when a save button is clicked, use that ID, take the 10 off of it, 
+    // and get the value out of the textarea using that number.  Then save the 
+    // value to localStorage with that number as the key.
+    // Then, when you go to render all the tasks, run through the possible numbers 
+    // and get the value out of localstorage and put it into the texta area again.
+
 
     var saveBtn = $(".saveBtn")
 
-    var textarea;
-    var saveBtn;
-
-    var events = [];
-
-    inIt();
-  
-      function renderEvents() {
-        for (var i = 0; i < events.length; i++) {
-          var event = events[i];
-      
-          textarea.append(event);
-        }
-      }
-
-    function inIt() {
-        var storedEvents = JSON.parse(localStorage.getItem("events"));      
-        if (storedEvents !== null) {
-          events = storedEvents;
-        }
-        renderEvents();
-    }
+    //  JSON.parse(localStorage.getItem("btnDigits")); 
 
     function storeEvents() {
-        localStorage.setItem("events", JSON.stringify(events));
+        localStorage.setItem("btnDigits", JSON.stringify(textareaVal));
     }
 
-    saveBtn.click(function(event){
-        event.preventDefault();
-          
-        var textareaVal = textarea.val().trim();
-          
-        if (textareaVal === "") {
-            return;
-        }
-          
-        events.push(textareaVal);
 
-        storeEvents();
-        renderEvents();
+    textarea.keyup(function(){
+        var textareaClick = this.id
+        console.log('textareaClick:', textareaClick)
 
-        });
+        var textDigits = textareaClick.replace(/\D/g, "");
+        console.log('textDigits:', textDigits)
+
+        textareaVal = this.value;
+        console.log('textareaVal:', textareaVal)
+
+
+
+
+        saveBtn.click(function(event){
+          event.preventDefault();
+  
+          var clickedBtn = this.id;
+  
+          var btnDigits = clickedBtn.replace(/\D/g, "");
+  
+          storeEvents();          
+      });
+    })
+
+      
 
 
 
