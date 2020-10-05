@@ -29,6 +29,7 @@ jQuery(document).ready(function() {
         // }
     });
     
+
     var saveBtn = $(".saveBtn")
 
     var textarea;
@@ -74,16 +75,6 @@ jQuery(document).ready(function() {
 
         });
 
+
+
 });
-
-    // saveBtn.click(function(event){
-    //     event.preventDefault();
-
-    //     localStorage.getItem('textarea');
-
-    //     localStorage.setItem('textarea', textarea.val());
-
-    //     console.log('textarea.val():', textarea.val())
-    //     console.log('textarea:', textarea)
-    
-    // });
