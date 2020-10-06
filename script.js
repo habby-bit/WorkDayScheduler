@@ -2,40 +2,41 @@ jQuery(document).ready(function() {
 
     var now = $("#currentDay") 
     now.text(moment().format("LLLL"));
+    console.log("now: ", moment().format("LLLL"))
 
     var textarea = $(".textarea")
 
-    var currentHour = moment().format('h a');
-
+    var currentHour = moment().format('hA')
     console.log('currentHour:', currentHour)
 
     var hours = $("span");
-    
-    var array = [];
+    var hoursArray = [];
     
     hours.each(function () {
-        array.push(this.innerHTML);
+        hoursArray.push(this.innerHTML);
     });
 
-    console.log('array:', array)
+    console.log('array:', hoursArray)
 
-    var hoursNum = hours.split(/AM|PM/);
-    console.log('hoursNum:', hoursNum)
+    hoursArray.forEach(function(hour, index){
+        console.log('hour:', hour)
 
-    // $.each(hoursNum, function(index, value) {
-    //     console.log(index, value);
-        // if (currentHour.isSame(value)) {
+        console.log('Comparison: ', moment().isAfter(hour))
+        console.log('moment: ', moment().format('hA'))
+
+        // if (currentHour.isSame(hour)) {
         //     textarea.addClass("present");
         // }
         
-        // if (currentHour.isBefore(value)) {
+        // if (currentHour.isBefore(hour)) {
         //     textarea.addClass("future");
         // }
 
-        // if (currentHour.isAfter(value)) {
+        // if (currentHour.isAfter(hour)) {
         //     textarea.addClass("past");
         // }
-    // });
+    })
+
     
     // How I would do this is I'd put an ID on the savebutton, like "save10". 
     // Then when a save button is clicked, use that ID, take the 10 off of it, 
@@ -47,7 +48,7 @@ jQuery(document).ready(function() {
 
     var saveBtn = $(".saveBtn")
 
-    //  JSON.parse(localStorage.getItem("btnDigits")); 
+     JSON.parse(localStorage.getItem("btnDigits")); 
 
     function storeEvents() {
         localStorage.setItem("btnDigits", JSON.stringify(textareaVal));
@@ -63,9 +64,6 @@ jQuery(document).ready(function() {
 
         textareaVal = this.value;
         console.log('textareaVal:', textareaVal)
-
-
-
 
         saveBtn.click(function(event){
           event.preventDefault();
