@@ -1,5 +1,17 @@
 jQuery(document).ready(function() {
 
+    // Getting all local storage and displaying it
+
+    $("#textarea9").val(localStorage.getItem("textarea9"))
+    $("#textarea10").val(localStorage.getItem("textarea10"))
+    $("#textarea11").val(localStorage.getItem("textarea11"))
+    $("#textarea12").val(localStorage.getItem("textarea12"))
+    $("#textarea1").val(localStorage.getItem("textarea1"))
+    $("#textarea2").val(localStorage.getItem("textarea2"))
+    $("#textarea3").val(localStorage.getItem("textarea3"))
+    $("#textarea4").val(localStorage.getItem("textarea4"))
+    $("#textarea5").val(localStorage.getItem("textarea5"))
+
     // Calling and displaying the current day and time
 
     var now = $("#currentDay") 
@@ -14,6 +26,7 @@ jQuery(document).ready(function() {
 
     $('span').each(function(){
         hoursArray.push($(this).attr('id'))
+        
     })
 
     // Creating an array of every textarea
@@ -26,72 +39,48 @@ jQuery(document).ready(function() {
     
     // Looping through every textarea and hour to change class based on the time of day.
 
-    textArray.forEach(function(value, index) {
+    // textArray.forEach(function(value, index) {
+    
+    // for (var j = 0; j < textArray.length; j++) {
 
         for (var i = 0; i < hoursArray.length; i++) {
+            
+            console.log('currentHour:', currentHour)  
+            console.log('hoursArray[i]:', hoursArray[i])  
 
-            // console.log('currentHour == hoursArray:', currentHour == hoursArray[i])
-            // console.log('currentHour > hoursArray:', currentHour > hoursArray[i])
-            // console.log('currentHour < hoursArray:', currentHour < hoursArray[i])
-
-            // console.log('currentHour:', currentHour)  
-            // console.log('hoursArray[i]:', hoursArray[i])
-
-            if (currentHour == hoursArray[i]) {   
-                $("#" + value).addClass("present");
+            console.log('currentHour == hoursArray:', currentHour == hoursArray[i])
+            console.log('currentHour > hoursArray:', currentHour > hoursArray[i])
+            console.log('currentHour < hoursArray:', currentHour < hoursArray[i])
+            
+            if (currentHour == hoursArray[i]) {    
+                textarea.addClass("present");
             }
 
-            if (currentHour > hoursArray[i]) {
-                $("#" + value).addClass("past");
+            else if (currentHour > hoursArray[i]) {
+                textarea.addClass("past");
             }
 
-            if (currentHour < hoursArray[i]) {
-                $("#" + value).addClass("future");
+            else  {
+                textarea.addClass("future");
             }
-
         }
 
-    });
+    // }
 
-
-    // How I would do this is I'd put an ID on the savebutton, like "save10". 
-    // Then when a save button is clicked, use that ID, take the 10 off of it, 
-    // and get the value out of the textarea using that number.  Then save the 
-    // value to localStorage with that number as the key.
-    // Then, when you go to render all the tasks, run through the possible numbers 
-    // and get the value out of localstorage and put it into the texta area again.
+    // });
 
     // Saving the input of the user to local storage.
 
     var saveBtn = $(".saveBtn")
 
-     JSON.parse(localStorage.getItem("btnDigits")); 
+    saveBtn.click(function(event){
+        event.preventDefault();
 
-    function storeEvents() {
-        localStorage.setItem("btnDigits", JSON.stringify(textareaVal));
-    }
+        var textVal = event.target.parentElement.previousElementSibling.value;
+        console.log('textVal:', textVal)
 
+        var textID = event.target.parentElement.previousElementSibling.id;
 
-    textarea.keyup(function(){
-        var textareaClick = this.id
-        console.log('textareaClick:', textareaClick)
-
-        var textDigits = textareaClick.replace(/\D/g, "");
-        console.log('textDigits:', textDigits)
-
-        textareaVal = this.value;
-        console.log('textareaVal:', textareaVal)
-
-        saveBtn.click(function(event){
-          event.preventDefault();
-  
-          var clickedBtn = this.id;
-  
-          var btnDigits = clickedBtn.replace(/\D/g, "");
-  
-          storeEvents();          
-      });
-    })
-
-
+        localStorage.setItem(textID, JSON.stringify(textVal));     
+    });
 });
