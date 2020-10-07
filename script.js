@@ -25,8 +25,7 @@ jQuery(document).ready(function() {
     var hoursArray = [];
 
     $('span').each(function(){
-        hoursArray.push($(this).attr('id'))
-        
+        hoursArray.push($(this).attr('id'))  
     })
 
     // Creating an array of every textarea
@@ -37,37 +36,23 @@ jQuery(document).ready(function() {
         textArray.push($(this).attr('id'))
     })
     
-    // Looping through every textarea and hour to change class based on the time of day.
+    // Looping through every textarea to change class based on the time of day.
 
-    // textArray.forEach(function(value, index) {
-    
-    // for (var j = 0; j < textArray.length; j++) {
-
-        for (var i = 0; i < hoursArray.length; i++) {
+    textArray.forEach(function(value, index) {
+        var i = index
             
-            console.log('currentHour:', currentHour)  
-            console.log('hoursArray[i]:', hoursArray[i])  
-
-            console.log('currentHour == hoursArray:', currentHour == hoursArray[i])
-            console.log('currentHour > hoursArray:', currentHour > hoursArray[i])
-            console.log('currentHour < hoursArray:', currentHour < hoursArray[i])
-            
-            if (currentHour == hoursArray[i]) {    
-                textarea.addClass("present");
-            }
-
-            else if (currentHour > hoursArray[i]) {
-                textarea.addClass("past");
-            }
-
-            else  {
-                textarea.addClass("future");
-            }
+        if (currentHour == hoursArray[i]) {    
+            $(`#${value}`).addClass("present");
         }
 
-    // }
+        else if (currentHour > hoursArray[i]) {
+            $(`#${value}`).addClass("past");
+        }
 
-    // });
+        else {
+            $(`#${value}`).addClass("future");
+        }
+    });
 
     // Saving the input of the user to local storage.
 
@@ -77,7 +62,6 @@ jQuery(document).ready(function() {
         event.preventDefault();
 
         var textVal = event.target.parentElement.previousElementSibling.value;
-        console.log('textVal:', textVal)
 
         var textID = event.target.parentElement.previousElementSibling.id;
 

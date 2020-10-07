@@ -4,7 +4,7 @@ body {
   line-height: 1;
 }
 
-.textarea{
+.textarea {
   background: transparent;
   resize: none;
   color: #000000;
@@ -14,7 +14,7 @@ body {
 }
 
 #textarea5 {
-  border-bottom: 1px solid #ced4da;
+  border-bottom: 1px dashed #000000;
 }
 
 .jumbotron {
@@ -25,11 +25,11 @@ body {
   border-bottom: 10px solid black;
 }
 
-.description{
+.description{ 
   white-space: pre-wrap;
 }
 
-.time-block{
+.time-block {
   text-align: center;
   border-radius: 15px;
 }
